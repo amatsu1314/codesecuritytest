@@ -31,7 +31,6 @@ _EICAR_B64 = "WDVPIVAlQEFQWzRcUFpYNTQoUF4pN0NDKTd9JEVJQ0FSLVNUQU5EQVJELUFOVElWSV
 
 def generate_eicar(output_path: str = "eicar.com", use_base64: bool = False):
     """
-    EICAR テストファイルを生成します。
     use_base64=True の場合、Base64 からデコードして書き出します。
     """
     if use_base64:

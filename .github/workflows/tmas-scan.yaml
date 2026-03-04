@@ -18,8 +18,8 @@ jobs:
         with:
           path: repo
 
-      - name: Scan repository with TMAS
-        uses: trendmicro/tmas-scan-action@v2
+      - name: Download TMAS and Scan Repo for Open Source Vulnerabilities and Secrets
+        uses: trendmicro/tmas-scan-action@vX
         with:
           version: '2'                      # v2系推奨
           vulnerabilitiesScan: true

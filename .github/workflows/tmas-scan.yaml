@@ -18,19 +18,27 @@ jobs:
         with:
           path: repo
 
+      - name: Sanity check - list files
+        run: |
+          echo "=== 現在のディレクトリ ==="
+          pwd
+          ls -la
+
+          echo "=== ./repo の中身 ==="
+          ls -la ./repo
+
       - name: Download TMAS and Scan Repo for Open Source Vulnerabilities and Secrets
         uses: trendmicro/tmas-scan-action@main
         with:
-          version: '2'                      # v2系推奨
+          version: '2'
           vulnerabilitiesScan: true
           malwareScan: true
           secretsScan: true
-          artifact: dir:./repo              # ↑ checkout の path と合わせる
+          artifact: dir:./repo
           additionalArgs: --region=ap-northeast-1
           tmasApiKey: ${{ secrets.TMAS_API_KEY }}
           githubToken: ${{ secrets.GITHUB_TOKEN }}
 
-      # （任意）道具確認
       - name: Check tools
         run: |
           curl --version

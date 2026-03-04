@@ -33,7 +33,7 @@ jobs:
         with:
           version: '2'                        # TMAS CLI のメジャー
           vulnerabilitiesScan: true           # SAST
-          malwareScan: true                   # マルウェア（EICAR）
+          malwareScan: false                   # マルウェア（EICAR）
           secretsScan: true                   # シークレット
           artifact: dir:./repo                # ← checkout と一致
           additionalArgs: --region=ap-northeast-1

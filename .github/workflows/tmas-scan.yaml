@@ -2,26 +2,36 @@ name: TMAS Scan
 
 on:
   push:
+  pull_request:
+
+permissions:
+  contents: read
+  pull-requests: write
 
 jobs:
   tmas-scan:
     name: TMAS Repo Scan
     runs-on: ubuntu-22.04
-
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
         with:
           path: repo
 
       - name: Scan repository with TMAS
-        uses: actions/checkout@v4
+        uses: trendmicro/tmas-scan-action@v2
         with:
-          version: '2'                     # v2 系を使うのが推奨
-          vulnerabilitiesScan: true        # 脆弱性チェック
-          malwareScan: true                # EICARなどマルウェアチェック
-          secretsScan: true                # APIキー埋め込みチェック
-          artifact: dir:./repo             # チェック対象はこのリポジトリ
-          additionalArgs: --region=ap-northeast-1  # ← 東京
-          tmasApiKey: ${{ secrets.TMAS_API_KEY }}  # Vision One API Key
-          githubToken: ${{ secrets.GITHUB_TOKEN }} # PRにコメントを返す
+          version: '2'                      # v2系推奨
+          vulnerabilitiesScan: true
+          malwareScan: true
+          secretsScan: true
+          artifact: dir:./repo              # ↑ checkout の path と合わせる
+          additionalArgs: --region=ap-northeast-1
+          tmasApiKey: ${{ secrets.TMAS_API_KEY }}
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
+
+      # （任意）道具確認
+      - name: Check tools
+        run: |
+          curl --version
+          jq --version

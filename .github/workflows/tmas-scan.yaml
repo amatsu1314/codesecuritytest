@@ -27,6 +27,21 @@ jobs:
           echo "=== ./repo の中身 ==="
           ls -la ./repo
 
+      # 🔥 手動テスト：TMAS CLI を直接叩く（超重要）
+      - name: Manual TMAS scan test
+        run: |
+          echo "=== Manual TMAS scan start ==="
+          echo "Using API KEY length:"
+          echo ${#TMAS_API_KEY}
+
+          # 手動 TMAS 実行
+          tmas scan dir ./repo \
+            --region ap-northeast-1 \
+            --debug \
+            --api-key "${{ secrets.TMAS_API_KEY }}"
+
+          echo "=== Manual TMAS scan end ==="
+
       - name: Download TMAS and Scan Repo for Open Source Vulnerabilities and Secrets
         uses: trendmicro/tmas-scan-action@main
         with:

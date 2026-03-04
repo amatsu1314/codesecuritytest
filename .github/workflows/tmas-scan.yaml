@@ -23,38 +23,32 @@ jobs:
           echo "=== 現在のディレクトリ ==="
           pwd
           ls -la
-
           echo "=== ./repo の中身 ==="
           ls -la ./repo
 
-      # ▼ TMAS Action（インストール＋スキャン）
+      # TMAS をインストール＆実行する公式アクション
       - name: Download TMAS and Scan Repo with TMAS Action
         id: tmas_action
         uses: trendmicro/tmas-scan-action@main
         with:
-          version: '2'
-          vulnerabilitiesScan: true
-          malwareScan: true
-          secretsScan: true
-          artifact: dir:./repo
+          version: '2'                        # TMAS CLI のメジャー
+          vulnerabilitiesScan: true           # SAST
+          malwareScan: true                   # マルウェア（EICAR）
+          secretsScan: true                   # シークレット
+          artifact: dir:./repo                # ← checkout と一致
           additionalArgs: --region=ap-northeast-1
           tmasApiKey: ${{ secrets.TMAS_API_KEY }}
           githubToken: ${{ secrets.GITHUB_TOKEN }}
 
-      # ▼ TMAS のインストールが終わったあとに手動スキャンを実行する
+      # 手動で CLI を叩いて詳細エラーを出す（原因特定用）
       - name: Manual TMAS scan test
-        if: always()
+        env:
+          TMAS_API_KEY: ${{ secrets.TMAS_API_KEY }}   # ← ここが超重要
         run: |
           echo "=== Manual TMAS scan start ==="
-          echo "Using API KEY length:"
-          echo ${#TMAS_API_KEY}
-
-          # 実行（TMAS インストールは前の Action が済ませている）
-          tmas scan dir ./repo \
-            --region ap-northeast-1 \
-            --api-key "${{ secrets.TMAS_API_KEY }}" \
-            --debug
-
+          echo "API KEY length: ${#TMAS_API_KEY}"     # 0ならSecrets未設定
+          # CLI 仕様どおりに実行（-VMS と --region を使用）
+          tmas scan dir ./repo -V -M -S --region=ap-northeast-1 -v
           echo "=== Manual TMAS scan end ==="
 
       - name: Check tools

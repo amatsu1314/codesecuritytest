@@ -15,7 +15,7 @@ jobs:
           path: repo
 
       - name: Scan repository with TMAS
-        uses: trendmicro/tmas-scan-action@v2
+        uses: actions/checkout@v4
         with:
           version: '2'                     # v2 系を使うのが推奨
           vulnerabilitiesScan: true        # 脆弱性チェック

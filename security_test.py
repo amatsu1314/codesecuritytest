@@ -13,9 +13,6 @@ Security Scanner Test Script (Python)
     * CWE-798: Hard-coded Secrets
     * CWE-327: Weak Hash (MD5)
 
-⚠️ 重要:
-  - 本番環境や共有リポジトリに配置しないでください。
-  - “テスト専用” です。自己責任で使用してください。
 """
 
 import base64

@@ -83,7 +83,7 @@ def vulnerable_sql_injection(user_input: str):
     cur.execute("CREATE TABLE users(name TEXT, password TEXT)")
     cur.execute("INSERT INTO users VALUES('admin','secret')")
 
-    # 脆弱: 文字列連結でクエリ構築
+    # 脆弱: 文字列連結でクエリ
     query = f"SELECT * FROM users WHERE name = '{user_input}'"
     print("[CWE-89] Query:", query)
     try:

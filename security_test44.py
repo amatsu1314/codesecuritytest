@@ -10,7 +10,7 @@ def vulnerable_insecure_file_permissions():
     with open(filename, "w") as f:
         f.write("test data")
 
-    # ✗ 脆弱: 誰でも読み書きできる 777
+    # ✗ 脆弱: 誰でも読み書きできる
     os.chmod(filename, stat.S_IRWXU | stat.S_IRWXG | stat.S_IRWXO)
     print(f"[CWE-732] Created file with insecure permissions: {filename}")
 

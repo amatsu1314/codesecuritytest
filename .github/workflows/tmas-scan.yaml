@@ -40,17 +40,6 @@ jobs:
           tmasApiKey: ${{ secrets.TMAS_API_KEY }}
           githubToken: ${{ secrets.GITHUB_TOKEN }}
 
-      # 手動で CLI を叩いて詳細エラーを出す（原因特定用）
-      - name: Manual TMAS scan test
-        env:
-          TMAS_API_KEY: ${{ secrets.TMAS_API_KEY }}   # ← ここが超重要
-        run: |
-          echo "=== Manual TMAS scan start ==="
-          echo "API KEY length: ${#TMAS_API_KEY}"     # 0ならSecrets未設定
-          # CLI 仕様どおりに実行（-VMS と --region を使用）
-          tmas scan dir ./repo -V -M -S --region=ap-northeast-1 -v
-          echo "=== Manual TMAS scan end ==="
-
       - name: Check tools
         run: |
           curl --version

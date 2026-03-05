@@ -3,7 +3,7 @@
 """
 Security Scanner Test Script (Python)
 ------------------------------------
-このスクリプトは、セキュリティスキャナ（Trend Micro Code Security 等）の検証用です。
+このスクリプトは、セキュリティスキャナ（Trend Micro Code Security 等）の検証用です
 以下を含みます：
   - EICAR テスト文字列の動的生成（eicar.com を作成）
   - 意図的な脆弱サンプル（SAST 検証目的）
